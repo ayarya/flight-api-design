@@ -6,7 +6,7 @@ module.exports = () => {
         <div>
             <form method="POST">
                 <h1>Search your Flight by entering time</h1>
-                <input type="time" name="flightTime" />
+                <input type="time" name="departure" />
                 <button>Search</button>
             </form>
         </div>`

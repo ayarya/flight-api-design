@@ -9,9 +9,10 @@ router.get('/', (req, res) => {
 	res.send(flightTemplate({ req }));
 });
 
-router.post('/', (req, res) => {
-	const { flightTime } = req.body;
-	res.send(flightTime);
+router.post('/', async (req, res) => {
+	const { departure } = req.body;
+	const data = await flightRepo.getAllBy({ departure });
+	res.send(data);
 });
 
 // router.post('/create', async (req, res) => {

@@ -62,7 +62,7 @@ class FlightRepository {
 
 	async getOneBy(filters) {
 		const records = await this.getall();
-		for (let record of records) {
+		for (let record of records.flights) {
 			let found = true;
 			for (let key in filters) {
 				if (record[key] !== filters[key]) {
@@ -73,6 +73,45 @@ class FlightRepository {
 				return record;
 			}
 		}
+	}
+
+	async getAllBy(filters) {
+		const records = await this.getall();
+		let flightData = [];
+		for (let record of records.flights) {
+			let found = true;
+			for (let key in filters) {
+				if (key === 'departure') {
+					let time = filters[key];
+					let timeArray = time.split(':');
+					let hours = parseInt(timeArray[0]);
+					let min = parseInt(timeArray[1]);
+					let finalTime = hours + min / 60;
+					let timejson = record[key];
+					let timeArrayjson = timejson.split(':');
+					let hoursjson = parseInt(timeArrayjson[0]);
+					let minjson = parseInt(timeArrayjson[1]);
+					let AmOrPm = timeArrayjson[1].substring(2);
+					if (AmOrPm === 'PM' && hoursjson !== 12) {
+						hoursjson = hoursjson + 12;
+					}
+					if (AmOrPm === 'AM' && hoursjson === 12) {
+						hoursjson = hoursjson - 12;
+					}
+					let finalTimeJson = hoursjson + minjson / 60;
+					if (Math.abs(finalTimeJson - finalTime) <= 5) {
+						continue;
+					}
+				}
+				if (record[key] !== filters[key]) {
+					found = false;
+				}
+			}
+			if (found) {
+				flightData.push(record);
+			}
+		}
+		return flightData;
 	}
 }
 
