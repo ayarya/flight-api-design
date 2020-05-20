@@ -9,6 +9,16 @@ router.get('/', (req, res) => {
 	res.send(flightTemplate({ req }));
 });
 
-router.post('/', (req, res) => {});
+router.post('/', (req, res) => {
+	const { flightTime } = req.body;
+	res.send(flightTime);
+});
+
+// router.post('/create', async (req, res) => {
+// 	await flightRepo.create({ flight: 'Air Canada 8099', departure: '7:30AM' });
+// 	await flightRepo.create({ flight: 'United Airline 6115', departure: '10:30AM' });
+// 	await flightRepo.create({ flight: 'WestJet 6456', departure: '12:30PM' });
+// 	await flightRepo.create({ flight: 'Delta 3833', departure: '3:00PM' });
+// });
 
 module.exports = router;
