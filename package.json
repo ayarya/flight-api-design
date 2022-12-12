@@ -19,6 +19,6 @@
   "homepage": "https://github.com/ayarya/flight-api-design#readme",
   "dependencies": {
     "cookie-session": "^1.4.0",
-    "express": "^4.17.1"
+    "express": "^4.17.3"
   }
 }
